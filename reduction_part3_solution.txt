@@ -1,0 +1,61 @@
+__kernel void reduce(const __global int *in_buf, __local int *temp, __global int *result)
+{
+    const uint gid = 2 * get_global_id(0);
+    const uint group_id = get_group_id(0);
+    const int local_size = get_local_size(0);
+    const int lid = get_local_id(0);
+    
+    temp[lid] = in_buf[gid]  + in_buf[gid + 1];   
+
+    for (int active_threads = local_size/2; active_threads > 0; active_threads /= 2)
+    {           
+        barrier(CLK_LOCAL_MEM_FENCE);
+        if (lid < active_threads) 
+        {
+            temp[lid] = temp[lid] + temp[lid + active_threads];
+        }
+    }
+    
+    if (lid == 0) {
+        result[group_id] = temp[0];
+    }
+}
+
+
+------ host
+
+local_work_size = (64, )
+nr_elements_per_work_group = local_work_size[0] * 2
+
+
+d_intermediate_buffer = cl.LocalMemory(size=local_work_size[0] * 4)
+
+----------------------- solution with threads as in the presentation ------------------
+// please notice that this requires 2 barriers and temporary variables t1 and t2.
+// without t1 and t2 values from temp will be read and written to the same location.
+
+__kernel void reduce(const __global int *in_buf, __local int *temp, __global int *result)
+{
+    const uint gid = get_global_id(0);
+    const uint group_id = get_group_id(0);
+    const int local_size = get_local_size(0);
+    const int local_id = get_local_id(0);
+    
+    temp[local_id] = in_buf[gid];
+
+    for (int active_threads = local_size/2; active_threads > 0; active_threads /= 2)
+    {   
+        barrier(CLK_LOCAL_MEM_FENCE);
+        if (local_id < active_threads)
+        {
+            int t1 = temp[2 * local_id];
+            int t2 = temp[2 * local_id + 1];
+            barrier(CLK_LOCAL_MEM_FENCE);
+            temp[local_id] = t1 + t2;
+        }        
+    }
+    
+    if (local_id == 0) {
+        result[group_id] = temp[local_id];
+    }
+}

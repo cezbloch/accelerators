@@ -1,1 +1,2 @@
-# accelerators
+# Gpu Workshop
+
