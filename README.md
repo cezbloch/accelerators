@@ -82,7 +82,7 @@ Look for latest cuda toolkit
 
 ```conda search -c nvidia cuda-toolkit```
 
-PyCuda does not work with Cuda toolkit 13.0 on Python 3.11, so install older CUDA
+As of 2025 H2, there is no compatible PyCuda package in conda that works with Cuda toolkit 13.0 on Python 3.11, so install older CUDA.
 
 ```conda install -c nvidia cuda-toolkit=12.8.1```
 
