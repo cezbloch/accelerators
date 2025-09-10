@@ -1,2 +1,4 @@
 ipykernel
 pyopencl
+pycuda
+opencv-python
