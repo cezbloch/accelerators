@@ -1,5 +1,6 @@
 ipykernel
-pyopencl
-pycuda
-opencv-python
 matplotlib
+opencv-python
+pandas
+pycuda
+pyopencl
