@@ -2,3 +2,4 @@ ipykernel
 pyopencl
 pycuda
 opencv-python
+matplotlib
