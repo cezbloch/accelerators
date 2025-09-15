@@ -76,6 +76,19 @@ Seems like this is not supported, due to Nvidia driver not supporting OpenCL in 
 
 ## CUDA
 
+### PyCuda on Windows
+
+Install CUDA Toolkit from Nvidia's website installer.
+
+Add location of CUDA DLLs to your path. Executables should be added during installation, but DLLs are not. Eg.
+
+```C:\Program Files\NVIDIA GPU Computing Toolkit\CUDA\v13.0\bin\x64```
+
+
+Then install PyCuda
+
+```pip install pycuda```
+
 ### Install Cuda on Ubuntu
 
 Look for latest cuda toolkit
