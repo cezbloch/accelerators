@@ -16,7 +16,7 @@ It's assumed that:
 
 Conda is a package manager and will help you with managing package dependencies. It is useful for installing eg. python or cuda runtimes - so something that python virtual environments (venvs) cannot do.
 
-It's can be problamatic to use both conda and virtual environments. So depending on your OS platform, accelerations platform or your preferences, it may be more convenient to use conda or venvs.
+It can be problematic to use both conda and virtual environments. So depending on your OS platform, accelerations platform or your preferences, it may be more convenient to use conda or venvs.
 
 - When you installed packages and libraries with Conda - stick to conda envs
 - When you installed packages like CUDA and python manually use python venvs
