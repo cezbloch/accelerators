@@ -1,0 +1,6 @@
+ipykernel
+matplotlib
+opencv-python
+pandas
+pycuda
+pyopencl
