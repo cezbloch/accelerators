@@ -1,7 +1,7 @@
 import numpy as np
 import pycuda.driver as cuda
 
-def profile_gpu(func, n_warmup, n_iters, *kernel_launch_args):
+def profile_gpu(func, n_warmup, n_iters, *kernel_launch_args, **kernel_launch_kwargs):
     """
     Profile the execution time of a CUDA GPU kernel (or any callable that launches CUDA work)
     over multiple iterations using CUDA Events for high‑resolution timing.
@@ -77,14 +77,28 @@ def profile_gpu(func, n_warmup, n_iters, *kernel_launch_args):
     
     # Warm-up launches (not timed)
     for _ in range(n_warmup):
-        func(*kernel_launch_args)
+        func(*kernel_launch_args, **kernel_launch_kwargs)
     times = np.zeros(n_iters, dtype=np.float64)
     for i in range(n_iters):
         start = cuda.Event(); end = cuda.Event()
         start.record()
-        func(*kernel_launch_args)
+        func(*kernel_launch_args, **kernel_launch_kwargs)
         end.record()
         end.synchronize()
         times[i] = start.time_till(end)  # ms
-    print(f'Kernel took on average {times.mean():.4f} ms, median {np.median(times):.4f} ms, std {times.std():.4f} ms over {n_iters} runs.')
-    return times
+        
+    avg_ms = np.mean(times)
+    median_ms = np.median(times)
+    variance = np.var(times)
+    std = np.std(times)
+    min_ms = np.min(times)
+
+    print(
+        f"Function took minimum = {min_ms:.4f} ms, "
+        f"on average {avg_ms:.4f} ms, "
+        f"with median {median_ms:.4f} ms, "
+        f"variance {variance:.4f} ms, "
+        f"standard deviation {std:.4f} ms."
+    )
+
+    return times        
