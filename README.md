@@ -64,8 +64,6 @@ As of 2025H2 choose python 3.11 for maximum compatibility.
 
 ### PyOpenCL on Windows
 
-Intall CUDA from Nvidia's website installer.
-
 When install python bindings for OpenCL
 
 ```pip install pyopencl```
@@ -78,16 +76,34 @@ Seems like this is not supported, due to Nvidia driver not supporting OpenCL in 
 
 ### PyCuda on Windows
 
+Install MSVC - Microsoft compiler - needed to compile CUDA kernels
+- download Visual Studio eg. Community version - latest is 2022
+- during installation make sure  "MSVC - VS 2022 C++ build tools" is selected
+
+Assuming you use virtual environment, add the snippet from ```CUDA\activate_bat``` to your ```.venv\Scripts\activate.bat``` before the ```:END``` clause. This is required so that VS development prompt is setup and ```cl.exe``` compiler and other paths are setup correctly. Alternatively VS Code can be run from a propmpt initialized with the content below but it leave a command window open:
+```
+@echo off
+call "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Auxiliary\Build\vcvars64.bat"
+code c:\projects\accelerators
+```
+
 Install CUDA Toolkit from Nvidia's website installer.
 
-Add location of CUDA DLLs to your path. Executables should be added during installation, but DLLs are not. Eg.
+Intall CUDA from Nvidia's website installer. CUDA toolkit version 13.0 does not work with PyCuda 2025.1.2.
+Tested combination:
+- CUDA 12.8
+- PyCuda 2025.1.2
 
-```C:\Program Files\NVIDIA GPU Computing Toolkit\CUDA\v13.0\bin\x64```
+Add location of CUDA DLLs to your path. Executables should be added during installation. Check the following are in the System or User Paths.
 
+```C:\Program Files\NVIDIA GPU Computing Toolkit\CUDA\v12.8\bin```
+```C:\Program Files\NVIDIA GPU Computing Toolkit\CUDA\v12.8\libnvvp```
+```C:\Program Files\NVIDIA GPU Computing Toolkit\CUDA\v12.8\bin\x64```
 
 Then install PyCuda
 
 ```pip install pycuda```
+
 
 ### Install Cuda on Ubuntu
 
