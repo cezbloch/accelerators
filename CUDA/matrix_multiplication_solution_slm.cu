@@ -1,7 +1,6 @@
     #define THREAD_INDEX (threadIdx.y * blockDim.x + threadIdx.x)
-    #define BLOCK_LENGTH 8 * 8
 
-    __global__ void matmul(float *A, float *B, float *C, int *debug, int N) {
+    __global__ void matmul(float *A, float *B, float *C, int N) {
         float sum = 0;
         int2 global_id = make_int2(blockIdx.x * blockDim.x + threadIdx.x,
                                    blockIdx.y * blockDim.y + threadIdx.y);
@@ -10,9 +9,9 @@
             return;
         }
                 
-        //extern __shared__ float slm[];
-        __shared__ float slm_A[BLOCK_LENGTH];
-        __shared__ float slm_B[BLOCK_LENGTH];
+        extern __shared__ float slm[];
+        float *slm_A = &slm[0];
+        float *slm_B = &slm[blockDim.x * blockDim.y];
         
         for (int b = 0; b < gridDim.x; b++) {
             int2 gidA = make_int2(b * blockDim.x + threadIdx.x,  blockIdx.y * blockDim.y + threadIdx.y);
@@ -32,4 +31,3 @@
         
         C[global_id.y * N + global_id.x] = sum;
     }
-    
