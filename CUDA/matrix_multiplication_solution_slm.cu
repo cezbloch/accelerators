@@ -14,8 +14,8 @@
         float *slm_B = &slm[blockDim.x * blockDim.y];
         
         for (int b = 0; b < gridDim.x; b++) {
-            int2 gidA = make_int2(b * blockDim.x + threadIdx.x,  blockIdx.y * blockDim.y + threadIdx.y);
-            int2 gidB = make_int2(blockIdx.x * blockDim.x + threadIdx.x,  b * blockDim.y + threadIdx.y);
+            int2 gidA = make_int2(b * blockDim.x + threadIdx.x,  global_id.y);
+            int2 gidB = make_int2(global_id.x,  b * blockDim.y + threadIdx.y);
                         
             slm_A[THREAD_INDEX] = A[gidA.y * N + gidA.x];
             slm_B[THREAD_INDEX] = B[gidB.y * N + gidB.x];
