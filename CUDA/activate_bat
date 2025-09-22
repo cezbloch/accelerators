@@ -1,0 +1,19 @@
+rem --- Optional: Initialize MSVC Build Environment for CUDA (cl.exe) ---
+rem This block loads Visual Studio's vcvars64.bat if cl.exe is not already on PATH.
+rem Disable by setting SKIP_VCVARS=1 before running "activate".
+rem Adjust the path below if you have a different VS edition or installation path.
+if not defined SKIP_VCVARS (
+    where cl >nul 2>nul
+    if errorlevel 1 (
+        set "_VS_VCVARS=C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Auxiliary\Build\vcvars64.bat"
+        if exist "%_VS_VCVARS%" (
+            call "%_VS_VCVARS%" >nul 2>nul
+            where cl >nul 2>nul && echo [activate.bat] MSVC environment loaded. || echo [activate.bat] Failed to load MSVC environment.
+        ) else (
+            echo [activate.bat] vcvars64.bat not found at default path. Set SKIP_VCVARS=1 to skip.
+        )
+        set _VS_VCVARS=
+    ) else (
+        rem cl.exe already present.
+    )
+)
