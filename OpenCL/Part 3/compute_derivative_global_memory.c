@@ -12,7 +12,7 @@ __kernel void compute_derivative(const __global float *x,
     int thread_id = get_global_id(0);
     int grid_stride = get_global_size(0);
     
-    for(int i = thread_id; i < nr_elements - 1; i+=grid_stride) {
+    for(int i = thread_id; i < nr_elements; i+=grid_stride) {
         float x_0 = x[i];
         float x_1 = x[i + 1];
                 

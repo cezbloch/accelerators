@@ -27,7 +27,7 @@ __kernel void compute_derivative_slm(const __global float *x,
     const int grid_stride = num_groups * local_size;
     const int thread_id = lid  + group_id * local_size;
 
-    for(int i = thread_id; i < nr_elements - 1; i+=grid_stride) {
+    for(int i = thread_id; i < nr_elements; i+=grid_stride) {
         float x_0 = x[i];
         float y_0 = f(x_0);
         
@@ -35,12 +35,11 @@ __kernel void compute_derivative_slm(const __global float *x,
         
         barrier(CLK_LOCAL_MEM_FENCE);
 
-        float y_1 = y_local[lid + 1];
-
-        if (lid + 1 < local_size)
+        if (lid < local_size)
         {
+            float y_1 = y_local[lid + 1];
             float x_1 = x[i + 1];
             y_prime[i] = (y_1 - y_0) / (x_1 - x_0);
         }
-    }    
+    }
 }
