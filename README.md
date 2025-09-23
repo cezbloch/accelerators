@@ -189,3 +189,38 @@ Create configuration at ```launch.json```. Note that ```cuda-gdb``` needs to be 
 ```
 
 Now, you should be able to run and debug native CUDA code.
+
+# Containers
+
+You can also run the development environment in the container. This will save you a lot of time setting up the environment.
+
+## Setting up
+
+(Docker Desktop on Windows 11 - video)[https://www.youtube.com/watch?v=t7mkHFOeMdA]
+
+On Windows you need the following to be installed and setup:
+- WSL2 - containers will use WSL Linux kernel
+- Docker
+    - Enable docker integration in WSL - Settings -> Resources -> WSL integration -> enable for your Linux distro
+- VS Code with extensions: "Dev Containers"
+
+In WSL install:
+- (Nvidia Container Toolkit)[https://docs.nvidia.com/datacenter/cloud-native/container-toolkit/latest/install-guide.html]
+
+## Running CUDA container
+
+This project is already setup to build a container needed to run the course. VS code should prompt you to open the folder in a container. If you want run this repo in the container manually run:
+
+```Dev Containers: Reopen in Container```
+
+When Dockerfile is modified and image did not get updated you may need to rebuild:
+
+```Dev Containers: Rebuild and Reopen in Container```
+
+## Setup in the container
+
+Create a venv (yes, in the container)
+
+```python3 -m venv .venv_container```
+
+Then install packages from the ```requirements.txt``` file with ```pip```
