@@ -129,7 +129,7 @@ If you use VS Code for development install the following extensions:
 
 ### Install Cuda on Ubuntu - only for PyCUDA!
 
-NOTE: With ```cuda-toolkit``` from conda you won't be able to debug native CUDA code. When you will try to debug eg. [Cuda Samples](https://github.com/NVIDIA/cuda-samples) written in C/C++/CUDA the debugger won't run because ```cuda-gdb``` installed with conda is just a debugger selector. Use Nvidia installer system with to get ```cuda-gdb``` running.
+NOTE: With ```cuda-toolkit``` from conda you won't be able to debug native CUDA code. When you will try to debug eg. [Cuda Samples](https://github.com/NVIDIA/cuda-samples) written in C/C++/CUDA the debugger won't run because ```cuda-gdb``` installed with conda is just a debugger selector. Use Nvidia system wide installer to get ```cuda-gdb``` running.
 
 Look for latest cuda toolkit
 
@@ -196,7 +196,7 @@ You can also run the development environment in the container. This will save yo
 
 ## Setting up
 
-(Docker Desktop on Windows 11 - video)[https://www.youtube.com/watch?v=t7mkHFOeMdA]
+[Docker Desktop on Windows 11 - video](https://www.youtube.com/watch?v=t7mkHFOeMdA)
 
 On Windows you need the following to be installed and setup:
 - WSL2 - containers will use WSL Linux kernel
@@ -205,7 +205,7 @@ On Windows you need the following to be installed and setup:
 - VS Code with extensions: "Dev Containers"
 
 In WSL install:
-- (Nvidia Container Toolkit)[https://docs.nvidia.com/datacenter/cloud-native/container-toolkit/latest/install-guide.html]
+- [Nvidia Container Toolkit](https://docs.nvidia.com/datacenter/cloud-native/container-toolkit/latest/install-guide.html)
 
 ## Running CUDA container
 
