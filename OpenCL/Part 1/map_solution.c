@@ -1,5 +1,3 @@
-%%cl_kernel -o "-cl-fast-relaxed-math"
-
 __kernel void compute_linear_equations_gpu(const __global int *a, 
                                            const __global int *b, 
                                            __global int *res, 

@@ -33,14 +33,13 @@ __kernel void compute_derivative_slm(const __global float *x,
         
         y_local[lid] = y_0;
         
-        barrier(CLK_LOCAL_MEM_FENCE); // -----------------------------
+        barrier(CLK_LOCAL_MEM_FENCE);
 
-        float y_1 = y_local[lid + 1];
-        
-        if (lid < local_size) 
+        if (lid < local_size)
         {
+            float y_1 = y_local[lid + 1];
             float x_1 = x[i + 1];
             y_prime[i] = (y_1 - y_0) / (x_1 - x_0);
         }
-    }    
+    }
 }

@@ -1,0 +1,23 @@
+{
+  "name": "NVIDIA CUDA Dev Container 2",
+  "build": {
+    "dockerfile": "Dockerfile",
+    "context": "."
+  },
+  "remoteUser": "vscode",
+  //"image": "nvidia/cuda:13.0.1-cudnn-devel-ubuntu24.04",
+  //"remoteUser": "root"
+  "runArgs": ["--gpus", "all", "--privileged"],
+  "customizations": {
+    "vscode": {
+      "extensions": [
+        "ms-vscode.cpptools",
+        "ms-vscode.cpptools-extension-pack",
+        "ms-python.python",
+        "ms-toolsai.jupyter",
+        "ms-azuretools.vscode-docker",
+        "nvidia.nsight-vscode-edition"
+      ]
+    }
+  }
+}
